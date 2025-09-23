@@ -1,0 +1,14 @@
+s1="AABEBCDD"
+s2=s1
+n = len(s1)
+m = len(s2)
+matrix = [["" for x in range(len(s2))] for x in range(len(s1))]
+for i in range(0, n):
+    for j in range(0, m):
+        if s1[i-1] == s2[j-1] and i!=j:
+            matrix[i][j] = s1[i-1] + matrix[i-1][j-1]
+        else:
+            matrix[i][j] = max(matrix[i-1][j], matrix[i][j-1], key=len)
+v=matrix[-1][-1]
+h=v[::-1]
+print(h)
