@@ -1,0 +1,15 @@
+text1 = "AGCCCTAAGGGCTACCTAGCTT"
+text2 = "GACAGCCTACAAGCGTTAGCTTG"
+matrix = [["" for x in range(len(text2))] for x in range(len(text1))]
+for i in range(len(text1)):
+    for j in range(len(text2)):
+        if text1[i]==text2[j]:
+            if i==0 or j==0:
+                matrix[i][j] = text1[i]
+            else:
+                matrix[i][j] = matrix[i-1][j-1]+text1[i]
+        else:
+            matrix[i][j] = max(matrix[i-1][j], matrix[i][j-1], key=len)
+v = matrix[-1][-1]
+print(v)
+print("length", len(v))
