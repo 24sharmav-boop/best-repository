@@ -1,0 +1,27 @@
+def optimal_bst(P):
+    n = len(P)
+    C = [[0 for _ in range(n + 2)] for _ in range(n + 2)]
+    R = [[0 for _ in range(n + 2)] for _ in range(n + 2)]
+    for i in range(1, n + 1):
+        C[i][i - 1] = 0
+        C[i][i] = P[i - 1]
+        R[i][i] = i
+    for i in range(1, n): 
+        for j in range(1, n - i + 1):
+            minval = float('inf')
+            kmin = 0
+            for k in range(j, j + i + 1):
+                cost = C[j][k - 1] + C[k + 1][j + i]
+                if cost < minval:
+                    minval = cost
+                    kmin = k
+            R[j][j + i] = kmin
+            total_prob = sum(P[j - 1:j + i])
+            C[j][j + i] = minval + total_prob
+    return C[1][n], R
+P = [0.1,0.2,0.4,0.3]
+cost, root_table = optimal_bst(P)
+print("Minimum average cost of successful search:", cost)
+print("Root table for optimal BST:")
+for row in root_table[1:len(P)+1]:
+    print(row[1:len(P)+1])
